@@ -10,7 +10,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class AppComponent {
   public title: String = 'Dev Todo';
-  public todos: Todo[] = [];
+  public createdTodos: Todo[] = [];
+  public startedTodos: Todo[] = [];
   public todoForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -25,8 +26,31 @@ export class AppComponent {
 
   add() {
     const name = this.todoForm.controls['name'].value;
-    const id = this.todos.length + 1;
-    this.todos.push(new Todo(id, name, false));
+    const id = this.createdTodos.length + 1;
+    this.createdTodos.push(new Todo(id, name, false));
     this.todoForm.reset();
+    console.log(this.createdTodos);
+  }
+
+  remove(todo:Todo) {
+    const index = this.createdTodos.indexOf(todo);
+    index !== -1 ? this.createdTodos.splice(index, 1) : null;
+  }
+
+  start(todo:Todo) {
+    const index = this.createdTodos.indexOf(todo);
+    index !== -1 ? this.createdTodos.splice(index, 1) : null;
+    index !== -1 ? this.startedTodos.push(todo) : null;
+  }
+
+  markAsDone(todo:Todo) {
+    todo.done = true;
+  }
+
+  markAsUndone(todo:Todo) {
+    todo.done = false;
+    const index = this.startedTodos.indexOf(todo);
+    index !== -1 ? this.startedTodos.splice(index, 1) : null;
+    index !== -1 ? this.createdTodos.push(todo) : null;
   }
 }
