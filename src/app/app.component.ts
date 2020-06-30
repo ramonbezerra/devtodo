@@ -29,17 +29,16 @@ export class AppComponent {
     const id = this.createdTodos.length + 1;
     this.createdTodos.push(new Todo(id, name, false));
     this.todoForm.reset();
-    console.log(this.createdTodos);
   }
 
   remove(todo:Todo) {
     const index = this.createdTodos.indexOf(todo);
     index !== -1 ? this.createdTodos.splice(index, 1) : null;
+    return index;
   }
 
   start(todo:Todo) {
-    const index = this.createdTodos.indexOf(todo);
-    index !== -1 ? this.createdTodos.splice(index, 1) : null;
+    const index = this.remove(todo);
     index !== -1 ? this.startedTodos.push(todo) : null;
   }
 
@@ -51,6 +50,6 @@ export class AppComponent {
     todo.done = false;
     const index = this.startedTodos.indexOf(todo);
     index !== -1 ? this.startedTodos.splice(index, 1) : null;
-    index !== -1 ? this.createdTodos.push(todo) : null;
+    index !== -1 ? this.createdTodos.push(todo) : null;    
   }
 }

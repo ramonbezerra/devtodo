@@ -14,13 +14,13 @@
 <h3>Tarefas a serem iniciadas: </h3>
 <div>
     <ul>
-        <li *ngFor="let todo of createdTodos">{{todo.name}} <button (click)="start(todo)">Iniciar</button></li>
+        <li *ngFor="let todo of createdTodos">{{todo.name}} <button (click)="start(todo)">Iniciar</button><button (click)="remove(todo)">Excluir</button></li>
     </ul>
 </div>
 
 <h3>Tarefas iniciadas: </h3>
 <div>
     <ul>
-        <li *ngFor="let todo of startedTodos">{{todo.name}} <button *ngIf="!todo.done" (click)="markAsDone(todo)">Concluir</button><button *ngIf="todo.done" (click)="markAsUndone(todo)">Remover</button></li>
+        <li *ngFor="let todo of startedTodos">{{todo.name}} <button *ngIf="!todo.done" (click)="markAsDone(todo)">Concluir</button><button *ngIf="todo.done" (click)="markAsUndone(todo)">Cancelar</button></li>
     </ul>
 </div>
