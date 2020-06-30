@@ -31,16 +31,17 @@ export class AppComponent {
   }
 
   load() {
-    this.service.getTodo()
+    this.service.getAllTodos()
                 .subscribe(data => this.createdTodos = data,
                   error => this.errorMessage = <any>error);
   }
 
   add() {
     const name = this.todoForm.controls['name'].value;
-    const id = this.createdTodos.length + 1;
-    this.createdTodos.push(new Todo(id, name, false));
+    const newTodo = new Todo(name, false);
+    this.service.addTodo(JSON.stringify({"name": name, "done": false}));
     this.todoForm.reset();
+    this.load();
   }
 
   remove(todo:Todo) {

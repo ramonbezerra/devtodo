@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -10,8 +10,12 @@ export class AppService {
 
     constructor(private http:Http) { }
 
-    getTodo() {
+    getAllTodos() : Observable<any> {
         return this.http.get('/todos')
                         .pipe(map(response => response.json().data));
+    }
+
+    addTodo(data) {
+        this.http.post('/todos', data, { headers: this.headers }).subscribe();
     }
 }
