@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "devtodo"
+    }
+  },
+  "defaultProject": "devtodo",
+  "cli": {
+    "analytics": "6441f2a4-78d1-48dd-ab84-b7320e92058b"
+  }
 }
