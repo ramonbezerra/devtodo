@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Todo } from 'src/models/todo.model'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class AppComponent {
   public title: String = 'Dev Todo';
+  private errorMessage: String;
   public createdTodos: Todo[] = [];
   public startedTodos: Todo[] = [];
   public todoForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private service: AppService, private fb: FormBuilder) {
     this.todoForm = this.fb.group({
       name: ['', Validators.compose([
         Validators.minLength(5),
@@ -22,6 +24,16 @@ export class AppComponent {
         Validators.required
       ])]
     });
+  }
+
+  ngOnInit() {
+    this.load()
+  }
+
+  load() {
+    this.service.getTodo()
+                .subscribe(data => this.createdTodos = data,
+                  error => this.errorMessage = <any>error);
   }
 
   add() {
