@@ -31,9 +31,13 @@ export class AppComponent {
   }
 
   load() {
-    this.service.getAllTodos()
+    this.service.getAllTodos(false)
                 .subscribe(data => this.createdTodos = data,
                   error => this.errorMessage = <any>error);
+
+    this.service.getAllTodos(true)
+                  .subscribe(data => this.startedTodos = data,
+                    error => this.errorMessage = <any>error);
   }
 
   add() {

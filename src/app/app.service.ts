@@ -9,8 +9,8 @@ export class AppService {
 
     constructor(private http:Http) { }
 
-    getAllTodos() : Observable<any> {
-        return this.http.get('/todos')
+    getAllTodos(data) : Observable<any> {
+        return this.http.get(`/todos/${data}`)
                         .pipe(map(response => response.json().data));
     }
 
