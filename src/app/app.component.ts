@@ -47,6 +47,7 @@ export class AppComponent {
   remove(todo:Todo) {
     const index = this.createdTodos.indexOf(todo);
     index !== -1 ? this.createdTodos.splice(index, 1) : null;
+    index !== -1 ? this.service.deleteTodo({ id: todo.id }) : null;
     return index;
   }
 
@@ -56,10 +57,12 @@ export class AppComponent {
   }
 
   markAsDone(todo:Todo) {
+    this.service.updateTodo({id: todo.id, done: true});
     todo.done = true;
   }
 
   markAsUndone(todo:Todo) {
+    this.service.updateTodo({id: todo.id, done: false});
     todo.done = false;
     const index = this.startedTodos.indexOf(todo);
     index !== -1 ? this.startedTodos.splice(index, 1) : null;

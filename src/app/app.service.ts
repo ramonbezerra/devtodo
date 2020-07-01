@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {
     headers: any = new Headers({ 'Content-Type': 'application/json' });
-    options: any = new RequestOptions({ headers: this.headers });
 
     constructor(private http:Http) { }
 
@@ -17,5 +16,13 @@ export class AppService {
 
     addTodo(data) {
         this.http.post('/todos', data, { headers: this.headers }).subscribe();
+    }
+
+    updateTodo(data) {
+        this.http.put(`/todos/${data.id}`, data, { headers: this.headers }).subscribe();
+    }
+
+    deleteTodo(data) {
+        this.http.delete(`/todos/${data.id}`).subscribe();
     }
 }
