@@ -1,26 +1,79 @@
-<h1>{{title}}</h1>
+<header class="masthead mb-auto">
+    <div class="inner">
+        <h3 class="masthead-brand">{{title}}</h3>
+    </div>
+</header><br/>
 
-<div>
-    <form [formGroup]="todoForm">
-        <label>Tarefa: </label>
-        <input type="text" placeholder="Digite aqui o título da tarefa" maxlength="200" formControlName="name"/><br/>
-        <small *ngIf="todoForm.controls.name.invalid && todoForm.controls.name.dirty">
-            Esse campo deve conter entre 5 e 100 caracteres<br/>
-        </small>
-        <button (click)="add()">Adicionar</button>
-    </form>
-</div>
+<main role="main" class="inner cover">
+    <h1 class="cover-heading">Manage your developer tasks.</h1><br/>
+    <p class="lead">This is a page to demonstrate a task management application made using <br/>Angular, Node.js + SequelizeJS and MySQL.</p> 
+    <p class="lead">You can add tasks, start and complete them, as well as cancel or delete too.</p>
+</main>
 
-<h3>Tarefas a serem iniciadas: </h3>
-<div>
-    <ul>
-        <li *ngFor="let todo of createdTodos">{{todo.name}} <button (click)="start(todo)">Iniciar</button><button (click)="remove(todo)">Excluir</button></li>
-    </ul>
-</div>
+<br/>
 
-<h3>Tarefas iniciadas: </h3>
-<div>
-    <ul>
-        <li *ngFor="let todo of startedTodos">{{todo.name}} <button *ngIf="!todo.done" (click)="markAsDone(todo)">Concluir</button><button *ngIf="todo.done" (click)="markAsUndone(todo)">Cancelar</button></li>
-    </ul>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <div class="card text-white bg-secondary mb-3" >
+                <div class="card-body">
+                    <form [formGroup]="todoForm">
+                        <input id="task" class="form-control" type="text" placeholder="Type here your task..." maxlength="100" formControlName="name"/>
+                        <small *ngIf="todoForm.controls.name.invalid && todoForm.controls.name.dirty">
+                            This field must contain between 5 and 100 characters.<br/>
+                        </small>
+                        <button class="btn btn-lg btn-light mt-3" [disabled]="todoForm.invalid" (click)="add()">Add Task</button>
+                    </form>
+                </div>
+            </div>            
+        </div>
+        <div class="col"></div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-4">
+            <h3 class="masthead-brand">Tasks to start:</h3>
+            <div>
+                <ul>
+                    <li *ngFor="let todo of createdTodos">
+                        <div class="card bg-light mb-3" style="color: black ;max-width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{todo.name}}</h5>
+                                <p><button class="btn btn-outline-success" (click)="start(todo)"><i class="far fa-play-circle"></i></button></p>
+                                <p><button class="btn btn-outline-danger" (click)="delete(todo)"><i class="far fa-trash-alt"></i></button></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4">
+            <h3 class="masthead-brand">Tasks started:</h3>
+            <div>
+                <ul>
+                    <li *ngFor="let todo of startedTodos">
+                        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{todo.name}}</h5>
+                                <p><span *ngIf="!todo.done" class="badge badge-warning">Incompleted</span></p>
+                                <p><span *ngIf="todo.done" class="badge badge-success">Completed</span></p>
+                                <p><button class="btn btn-outline-success" (click)="markAsDone(todo)"><i class="far fa-check-circle"></i></button></p>
+                                <p><button class="btn btn-outline-danger" (click)="markAsUndone(todo)"><i class="far fa-window-close"></i></button></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
 </div>
+<br/>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <p>Created by Ramon Bezerra da Nóbrega.</p>
+    </div>
+</footer>
+

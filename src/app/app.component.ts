@@ -48,10 +48,14 @@ export class AppComponent {
     this.load();
   }
 
+  delete(todo:Todo) {
+    const index = this.remove(todo);    
+    index !== -1 ? this.service.deleteTodo({ id: todo.id }) : null;
+  }
+
   remove(todo:Todo) {
     const index = this.createdTodos.indexOf(todo);
     index !== -1 ? this.createdTodos.splice(index, 1) : null;
-    index !== -1 ? this.service.deleteTodo({ id: todo.id }) : null;
     return index;
   }
 
